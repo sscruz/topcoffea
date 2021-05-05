@@ -20,8 +20,15 @@ from topcoffea.modules.HistEFT import HistEFT
 
 #coffea.deprecations_as_errors = True
 
-# In the future these names will be read from the nanoAOD files
+# The 16 WCs from TOP-19-001 (2-heavy, 2-quark-2-lepton)
 WCNames = ['ctW', 'ctp', 'cpQM', 'ctli', 'cQei', 'ctZ', 'cQlMi', 'cQl3i', 'ctG', 'ctlTi', 'cbW', 'cpQ3', 'ctei', 'cpt', 'ctlSi', 'cptb']
+
+# The 22 WCs for ttX and tXq in the Full R2 analysis (2-heavy, 2-quark-2-lepton, 2-light-2-heavy)
+#WCNames = ['ctW', 'ctp', 'cpQM', 'ctli', 'cQei', 'ctZ', 'cQlMi', 'cQl3i', 'ctG', 'ctlTi', 'cbW', 'cpQ3', 'ctei', 'cpt', 'ctlSi', 'cptb' , 'cQq13' , 'cQq83' , 'cQq11' , 'ctq1' , 'cQq81' , 'ctq8']
+
+# All 26 WCs in the Full R2 analysis (2-heavy, 2-quark-2-lepton, 2-light-2-heavy, 4-heavy)
+#WCNames = ['ctW', 'ctp', 'cpQM', 'ctli', 'cQei', 'ctZ', 'cQlMi', 'cQl3i', 'ctG', 'ctlTi', 'cbW', 'cpQ3', 'ctei', 'cpt', 'ctlSi', 'cptb' , 'cQq13' , 'cQq83' , 'cQq11' , 'ctq1' , 'cQq81' , 'ctq8' , 'ctt1' , 'cQQ1' , 'cQt1' , 'cQt8']
+
 
 class AnalysisProcessor(processor.ProcessorABC):
     def __init__(self, samples):
@@ -60,6 +67,7 @@ class AnalysisProcessor(processor.ProcessorABC):
     def process(self, events):
         # Dataset parameters
         dataset = events.metadata['dataset']
+        WClst  = self._samples[dataset]['WCnames']
         year   = self._samples[dataset]['year']
         xsec   = self._samples[dataset]['xsec']
         sow    = self._samples[dataset]['nSumOfWeights' ]

@@ -16,6 +16,7 @@ from coffea.nanoevents import NanoAODSchema
 
 import topeft
 from topcoffea.modules import samples
+from topcoffea.modules import fileReader
 import topeftenv
 
 import argparse
@@ -57,11 +58,12 @@ else:
   
 flist = {}; xsec = {}; sow = {}; isData = {}
 for k in samplesdict.keys():
+  samplesdict[k]['WCnames'] = fileReader.GetListOfWCs(samplesdict[k]['files'][0])
   flist[k] = samplesdict[k]['files']
   xsec[k]  = samplesdict[k]['xsec']
   sow[k]   = samplesdict[k]['nSumOfWeights']
   isData[k]= samplesdict[k]['isData']
-    
+
 processor_instance = topeft.AnalysisProcessor(samplesdict)
 
 executor_args = {#'flatten': True, #used for all executors
